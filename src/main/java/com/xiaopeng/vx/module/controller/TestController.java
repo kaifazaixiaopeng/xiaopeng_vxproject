@@ -1,10 +1,10 @@
 package com.xiaopeng.vx.module.controller;
 
 import cn.hutool.crypto.SecureUtil;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.fastjson.JSONObject;
+import com.xiaopeng.vx.module.dto.InMessage;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
@@ -16,6 +16,7 @@ import java.util.Arrays;
  */
 @RequestMapping("/test")
 @RestController
+@Slf4j
 public class TestController {
     @PostMapping("/helloPeng")
     public String test1(){
@@ -28,6 +29,7 @@ public class TestController {
     public String validate(String signature,String timestamp,String nonce,String echostr){
         // 1. 将token、timestamp、nonce三个参数进行字典序排序
         String[] arr = {timestamp, nonce, TOKEN};
+        log.info("收到的TOKEN=====>{}"+TOKEN);
         Arrays.sort(arr);
         // 2. 将三个参数字符串拼接成一个字符串进行sha1加密
         StringBuilder sb = new StringBuilder();
@@ -42,5 +44,10 @@ public class TestController {
         }
         // 接入失败
         return null;
+    }
+
+    @PostMapping("/testXml")
+    public String testXml(@RequestBody InMessage message){
+        return JSONObject.toJSONString(message);
     }
 }
