@@ -24,7 +24,7 @@ public class TestController {
     // 微信页面填写的token，必须保密
     private static final String TOKEN = "143148@qq";
 
-    @GetMapping("validate")
+    @GetMapping("/validate")
     public String validate(String signature,String timestamp,String nonce,String echostr){
         // 1. 将token、timestamp、nonce三个参数进行字典序排序
         String[] arr = {timestamp, nonce, TOKEN};
