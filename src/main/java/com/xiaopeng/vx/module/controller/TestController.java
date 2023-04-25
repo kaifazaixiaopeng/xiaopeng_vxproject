@@ -3,7 +3,9 @@ package com.xiaopeng.vx.module.controller;
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.xiaopeng.vx.module.dto.InMessage;
+import com.xiaopeng.vx.module.utils.AccToken;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -23,8 +25,9 @@ public class TestController {
         return "helloPeng";
     }
     // 微信页面填写的token，必须保密
-    private static final String TOKEN = "143148@qq";
-
+    private static final String TOKEN = "1431481410@qq.com";
+    @Autowired
+    private AccToken accToken;
     @GetMapping("/validate")
     public String validate(String signature,String timestamp,String nonce,String echostr){
         // 1. 将token、timestamp、nonce三个参数进行字典序排序
@@ -50,4 +53,5 @@ public class TestController {
     public String testXml(@RequestBody InMessage message){
         return JSONObject.toJSONString(message);
     }
+
 }
